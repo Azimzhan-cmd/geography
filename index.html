@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инновации в Экологии | География</title>
+    <link rel="icon" href="https://img.icons8.com/color/48/000000/planet.png">
+    <style>
+        /* --- CSS СТИЛИ --- */
+        :root {
+            --primary-color: #2ecc71; /* Ярко-зеленый */
+            --primary-dark: #27ae60;
+            --dark-color: #2c3e50;    /* Темно-синий */
+            --light-bg: #f4fdf4;      /* Светлый фон */
+            --text-color: #333;
+            --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Навигация */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            margin-left: 20px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Секция */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1473448912268-2022ce9509d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.5s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s, background 0.3s;
+            animation: fadeInUp 1s ease 0.8s forwards;
+            opacity: 0;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* Секция Технологий */
+        .section {
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark-color);
+            font-size: 2.5rem;
+        }
+
+        .section-desc {
+            text-align: center;
+            max-width: 800px;
+            margin: -30px auto 50px;
+            color: #666;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Стили Карточки-Ссылки */
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            opacity: 0; /* Для анимации */
+            transform: translateY(30px);
+            text-decoration: none; /* Убираем подчеркивание ссылки */
+            color: inherit; /* Наследуем цвет текста */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(46, 204, 113, 0.2); /* Зеленоватая тень */
+        }
+
+        /* Подсказка при наведении */
+        .card::after {
+            content: "🔗 Читать источник";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card-img {
+            height: 220px;
+            width: 100%;
+            background-color: #ddd;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card h3 {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #555;
+            flex-grow: 1;
+        }
+
+        .tag {
+            background: #e8f8f5;
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+
+        /* Интерактивная секция */
+        .fact-section {
+            background-color: var(--dark-color);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .fact-box {
+            border: 2px solid var(--primary-color);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            font-size: 1.3rem;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+        }
+        
+        /* ------------------------------------------- */
+        /* НОВЫЕ СТИЛИ ДЛЯ РАЗДЕЛА КОНТАКТОВ */
+        /* ------------------------------------------- */
+        .contact-wrapper {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .author-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid #f0f0f0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Цвета соцсетей */
+        .tg { background: #229ED9; }
+        .vk { background: #0077FF; }
+        .email { background: #e74c3c; }
+
+        /* Футер */
+        footer {
+            background: #222;
+            color: #aaa;
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Анимации */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .nav-links { 
+                display: none; 
+            }
+            .section { padding: 60px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">🌍 EcoTech Geo</div>
+        <div class="nav-links">
+            <a href="#about">О проекте</a>
+            <a href="#technologies">Технологии</a>
+            <a href="#interactive">Факты</a>
+            <a href="#contacts" style="color: var(--primary-dark); font-weight: bold;">Контакты</a>
+        </div>
+    </nav>
+
+    <section id="about" class="hero">
+        <h1>Технологии спасают планету</h1>
+        <p>Узнайте, как географические информационные системы (ГИС), биотехнологии и возобновляемая энергия меняют наш подход к охране природы. Кликните на карточку технологии, чтобы изучить подробности.</p>
+        <a href="#technologies" class="btn">Исследовать инновации</a>
+    </section>
+
+    <section id="technologies" class="section">
+        <h2 class="section-title">Ключевые технологии</h2>
+        <p class="section-desc">Нажмите на любую карточку ниже, чтобы перейти к источнику и прочитать подробную научную информацию.</p>
+        
+        <div class="cards-container">
+            
+            <a href="https://ru.wikipedia.org/wiki/Геоинформационная_система" target="_blank" class="card reveal-on-scroll">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Спутник" class="card-img">
+                </div>
+                <div class="card-content">
+                    <span class="tag">Мониторинг</span>
+                    <h3>ГИС и Космический мониторинг</h3>
+                    <p>Современные спутники используют технологию LIDAR для создания 3D-карт лесов. Это позволяет выявлять незаконную вырубку в Амазонии с точностью до одного дерева в режиме реального времени. Данные передаются экологам мгновенно.</p>
+                </div>
+            </a>
+
+            <a href="https://ru.wikipedia.org/wiki/Возобновляемая_энергия" target="_blank" class="card reveal-on-scroll">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Энергия" class="card-img">
+                </div>
+                <div class="card-content">
+                    <span class="tag">Энергетика</span>
+                    <h3>Зеленая Энергия 2.0</h3>
+                    <p>Новейшие перовскитные солнечные панели эффективнее кремниевых и могут быть прозрачными, заменяя окна небоскребов. А плавучие ветряные фермы способны генерировать в 2 раза больше энергии благодаря сильным морским ветрам.</p>
+                </div>
+            </a>
+
+            <a href="https://trends.rbc.ru/trends/green/60c1d7639a794715d1156826" target="_blank" class="card reveal-on-scroll">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Ферма" class="card-img">
+                </div>
+                <div class="card-content">
+                    <span class="tag">Агротех</span>
+                    <h3>Вертикальные сити-фермы</h3>
+                    <p>Аэропоника позволяет выращивать растения в тумане питательных веществ без почвы. Это снижает расход воды на 95% и позволяет получать урожай круглый год прямо внутри мегаполисов, сокращая транспортный углеродный след.</p>
+                </div>
+            </a>
+
+            <a href="https://theoceancleanup.com/" target="_blank" class="card reveal-on-scroll">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Океан" class="card-img">
+                </div>
+                <div class="card-content">
+                    <span class="tag">Гидросфера</span>
+                    <h3>The Ocean Cleanup</h3>
+                    <p>Проект Бояна Слата запустил систему System 03 — гигантский плавучий барьер длиной 2,5 км, который собирает пластик в Тихом океане. Также используются роботы-перехватчики в реках, чтобы мусор не попадал в моря.</p>
+                </div>
+            </a>
+
+             <a href="https://trends.rbc.ru/trends/green/626154889a79478d1066063d" target="_blank" class="card reveal-on-scroll">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Переработка" class="card-img">
+                </div>
+                <div class="card-content">
+                    <span class="tag">Биотех</span>
+                    <h3>Бактерии против пластика</h3>
+                    <p>Ученые обнаружили и модифицировали фермент бактерии <i>Ideonella sakaiensis</i>, который способен разлагать ПЭТ-пластик (бутылки) за считанные дни, превращая отходы обратно в сырье для производства.</p>
+                </div>
+            </a>
+
+            <a href="https://ru.wikipedia.org/wiki/Электромобиль" target="_blank" class="card reveal-on-scroll">
+                <div style="overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Транспорт" class="card-img">
+                </div>
+                <div class="card-content">
+                    <span class="tag">Урбанистика</span>
+                    <h3>Умный электротранспорт</h3>
+                    <p>Переход на электробусы и водородное топливо снижает смог в городах. Умные светофоры с ИИ оптимизируют трафик, уменьшая пробки и выбросы выхлопных газов на 30%.</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <section id="interactive" class="section fact-section">
+        <h2 class="section-title" style="color:white;">Экологический рандомайзер</h2>
+        <p>Нажмите кнопку, чтобы получить уникальный факт для вашего доклада:</p>
+        <div id="fact-display" class="fact-box">
+            Технологии — это ключ к устойчивому будущему.
+        </div>
+        <button class="btn" onclick="generateFact()" style="margin-top: 20px; background: white; color: var(--primary-color);">Узнать новый факт</button>
+    </section>
+
+    <section id="contacts" class="section" style="background-color: #f9f9f9;">
+        <h2 class="section-title">Связаться с автором</h2>
+        <div class="contact-wrapper">
+            
+            <div class="author-card">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Avatar" class="author-avatar">
+                
+                <h3>Ибраимов Азимжан</h3>
+                <p style="color: #666; margin-bottom: 10px;">Студент 1 курса Группы "РПО6-25Р"</p>
+                <p>Этот проект был создан для урока географии. Если у вас есть вопросы по материалам или вы нашли ошибку, напишите мне!</p>
+                
+                <div class="social-links">
+                    <a href="https://t.me/YMRY_OT_SEXA" target="_blank" class="social-btn tg" title="Telegram">✈️</a>
+                    <a href="https://vk.com/id812168984" target="_blank" class="social-btn vk" title="VKontakte">VK</a>
+                    <a href="mailto:lolroamnyl@gmail.com" class="social-btn email" title="Email">✉️</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025-2026 Студ проэкт по предмету География. <br>Источники: <a href="https://wikipedia.org" target="_blank">Wikipedia</a>, <a href="https://theoceancleanup.com" target="_blank">Ocean Cleanup</a>, NASA.</p>
+    </footer>
+
+    <script>
+        /* --- JAVASCRIPT ЛОГИКА --- */
+
+        // 1. Анимация при скролле
+        window.addEventListener('scroll', reveal);
+
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal-on-scroll');
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 100;
+
+                if (revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        reveal(); // Запуск при загрузке
+
+        // 2. Расширенный генератор фактов
+        const facts = [
+            "Швеция настолько эффективно перерабатывает мусор, что у неё закончились отходы, и она импортирует их из Норвегии.",
+            "Если интернет был бы страной, он занимал бы 6-е место в мире по потреблению электричества.",
+            "Одна ветряная турбина компенсирует выбросы CO2 от 500 автомобилей.",
+            "Бамбук — самое быстрорастущее растение (до 91 см в день) и отличный поглотитель углерода.",
+            "Дроны высаживают деревья в 60 раз быстрее, чем люди, используя «семенные бомбы».",
+            "Стеклянная бутылка разлагается 1 миллион лет, но перерабатывается на 100% бесконечное число раз.",
+            "Крыши, окрашенные в белый цвет, отражают солнечный свет и снижают температуру в зданиях, экономя энергию кондиционеров."
+        ];
+
+        function generateFact() {
+            const display = document.getElementById('fact-display');
+            const btn = document.querySelector('#interactive .btn');
+            
+            // Анимация исчезновения
+            display.style.opacity = 0;
+            display.style.transform = "scale(0.9)";
+            
+            btn.disabled = true; // Блокируем кнопку на время анимации
+
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * facts.length);
+                display.innerText = facts[randomIndex];
+                
+                // Анимация появления
+                display.style.opacity = 1;
+                display.style.transform = "scale(1)";
+                btn.disabled = false;
+            }, 300);
+        }
+    </script>
+
+</body>
+</html>
